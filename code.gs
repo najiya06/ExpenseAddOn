@@ -45,13 +45,12 @@ function getSumWeekly() {
   }
   return sum;
 }
-}
 
 function sendWeeklyReport() {
   var emailAddress = Session.getEffectiveUser().getEmail();
   var template = HtmlService
     .createTemplateFromFile('weeklyReport.html');
-  template.url = getBarChart();
+  template.url = getReport();
   var c = getSumWeekly();
   var sumtostring = c.toString();
   var res = "You have spend " + sumtostring + " this week";
