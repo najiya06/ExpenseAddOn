@@ -1,5 +1,5 @@
 # ExpenseAddon
-building an expense add-on using google form and sheet .
+building an expense tracker add-on using google form and sheet .
 
 
 to use this add-on, create a google form to fill your daily expenses and it will be send to your email daily.
