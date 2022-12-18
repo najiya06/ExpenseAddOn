@@ -43,6 +43,8 @@ function getSumWeekly() {
       sum = sum + a;
     }
   }
+  return sum;
+}
 }
 
 function sendWeeklyReport() {
@@ -80,8 +82,6 @@ function getReport() {
   }
   var dataSourceUrl = ss.getUrl();
   return dataSourceUrl;
-}
-  return sum;
 }
 
 function createTimeDrivenTriggerWeeklyReport() {
