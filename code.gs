@@ -24,6 +24,7 @@ function createTimeDrivenTriggers() {
     .everyDays(1)
     .create();
 }
+
 function getActiveFormId() {
   const id = FormApp.getActiveForm().getId();
   return id;
@@ -42,6 +43,7 @@ function getSumWeekly() {
       sum = sum + a;
     }
   }
+}
 
 function sendWeeklyReport() {
   var emailAddress = Session.getEffectiveUser().getEmail();
@@ -59,10 +61,10 @@ function sendWeeklyReport() {
   });
 }
 
-function getBarChart() {
+function getReport() {
   var ss = SpreadsheetApp.create("WeekReport");
   var sheet = ss.getSheets()[0]
-  var sid = getActiveFormId()
+  var sid = getActiveFormId();
   var form = FormApp.openById(sid);
   var formResponses = form.getResponses();
   for (var i = 0; i < formResponses.length; i++) {
@@ -72,33 +74,20 @@ function getBarChart() {
       var itemResponse = itemResponses[j];
       var a = Number(itemResponse.getResponse());
       var b = "Day " + i.toString();
-      sheet.getRange(2 + i, 1).setValue(b);
-      sheet.getRange(2 + i, 2).setValue(a);
+      sheet.getRange(1 + i, 1).setValue(b);
+      sheet.getRange(1 + i, 2).setValue(a);
     }
   }
   var dataSourceUrl = ss.getUrl();
-  var chartBuilder = Charts.newBarChart()
-    .setTitle('Weekly Expense')
-    .setXAxisTitle('Days')
-    .setYAxisTitle('Daily Expenses')
-    .setDimensions(600, 500)
-    .setLegendPosition(Charts.Position.BOTTOM)
-    .setDataSourceUrl("https://docs.google.com/spreadsheets/d/1AKVNHVsqmCR9jSQLNiv7xTD7eqgpIvtQBYgfEks4Hxg/edit#gid=0")
-    .build();
-
-  var chart = chartBuilder.build();
   return dataSourceUrl;
+}
+  return sum;
 }
 
 function createTimeDrivenTriggerWeeklyReport() {
   ScriptApp.newTrigger('sendWeeklyReport')
     .timeBased()
-    .onWeekDay(ScriptApp.WeekDay.SUNDAY)
     .atHour(10)
+    .onWeekDay(ScriptApp.WeekDay.SUNDAY)
     .create();
-}
-
-
-
-  return sum;
 }
